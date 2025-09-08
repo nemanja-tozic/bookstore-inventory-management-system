@@ -1,5 +1,6 @@
 package com.azul.bookstoreinventorymanagementsystem.controller;
 
+import com.azul.bookstoreinventorymanagementsystem.exception.EntityAlreadyExistsException;
 import com.azul.bookstoreinventorymanagementsystem.exception.EntityNotFoundException;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
   @ExceptionHandler(EntityNotFoundException.class)
   public ResponseEntity<Object> handleEntityNotFound(EntityNotFoundException ex, WebRequest request) {
+    final var body = new HashMap<String, List<String>>();
+
+    body.put("errors", List.of(ex.getMessage()));
+
+    return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+  }
+
+  @ExceptionHandler(EntityAlreadyExistsException.class)
+  public ResponseEntity<Object> handleEntityAlreadyExists(EntityAlreadyExistsException ex, WebRequest request) {
     final var body = new HashMap<String, List<String>>();
 
     body.put("errors", List.of(ex.getMessage()));
