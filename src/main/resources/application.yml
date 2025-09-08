@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: bookstore-inventory-management-system
+  datasource:
+    url: jdbc:postgresql://localhost:5432/bookstore_inventory
+    username: postgres
+    password: postgres
+  flyway:
+    url: jdbc:postgresql://localhost:5432/bookstore_inventory
+    locations: classpath:db/migration
+    password: postgres
+    user: postgres
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
