@@ -29,6 +29,18 @@ public class BookCrudControllerTest extends AbstractTest {
   }
 
   @Test
+  void testInsertBookTest_isbnExists() {
+    final var book = sampleBookEntity();
+    final var request = getBookUpsertRequestDto();
+    asAdmin()
+        .body(request)
+        .when()
+        .post("/book")
+        .then()
+        .statusCode(HttpStatus.BAD_REQUEST.value());
+  }
+
+  @Test
   void testInsertBookTest_emptyTitle() {
     final var request = getBookUpsertRequestDto();
     request.setTitle("");
